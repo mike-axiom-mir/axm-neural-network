@@ -1,7 +1,12 @@
 import copy
 import unittest
 
-from axm_bridge import BridgeContract, HostEvent, build_uc_bridge_contract
+from axm_bridge import (
+    AXM_ROOT_CONTRACT_REF,
+    BridgeContract,
+    HostEvent,
+    build_uc_bridge_contract,
+)
 
 
 class BridgeContractTests(unittest.TestCase):
@@ -10,6 +15,14 @@ class BridgeContractTests(unittest.TestCase):
         b = build_uc_bridge_contract()
         self.assertEqual(a.fingerprint, b.fingerprint)
         self.assertEqual(a.brain_io_sha256, b.brain_io_sha256)
+
+    def test_root_contract_reference_is_canonical_and_fingerprinted(self):
+        contract = build_uc_bridge_contract()
+        self.assertEqual(contract.to_dict()["root_contract"], AXM_ROOT_CONTRACT_REF)
+        self.assertEqual(
+            AXM_ROOT_CONTRACT_REF["contract_sha256"],
+            "7d1eaeb05ce9353bccb5783a045ce9be91bf327c17bd93b47fdb68fd6bc46ed2",
+        )
 
     def test_event_fails_closed_on_contract_mismatch(self):
         contract = build_uc_bridge_contract()
@@ -46,6 +59,13 @@ class BridgeContractTests(unittest.TestCase):
         contract = build_uc_bridge_contract()
         changed = copy.deepcopy(contract.to_dict())
         changed["authority"]["execution"] = "neural"
+        with self.assertRaises(ValueError):
+            BridgeContract.from_dict(changed)
+
+    def test_root_contract_rewrite_is_rejected(self):
+        contract = build_uc_bridge_contract()
+        changed = copy.deepcopy(contract.to_dict())
+        changed["root_contract"]["contract_sha256"] = "0" * 64
         with self.assertRaises(ValueError):
             BridgeContract.from_dict(changed)
 

@@ -7,17 +7,19 @@ import json
 import math
 from typing import Mapping, Optional
 
-BRIDGE_SCHEMA = "axm-host-brain-bridge/v1"
+BRIDGE_SCHEMA = "axm-host-brain-bridge/v1.1"
 EXPERIENCE_SCHEMA = "axm-host-experience/v1"
 ACTION_SCHEMA = "axm-host-action-proposal/v1"
 CHECKPOINT_SCHEMA = "axm-host-brain-checkpoint/v1"
+ROOT_REF_SCHEMA = "axm-root-contract-ref/v1"
 
-AXM_ROOTS = (
-    "truth",
-    "agency-non-domination",
-    "continuity",
-    "wisdom-before-speed",
-)
+AXM_ROOT_CONTRACT_REF = {
+    "schema": ROOT_REF_SCHEMA,
+    "owner_repo": "mike-axiom-mir/axm-neural-brain",
+    "owner_commit": "a0f5de4b19bf515e145caf50b12130ab740869b5",
+    "contract_schema": "axm-roots/v0.1",
+    "contract_sha256": "7d1eaeb05ce9353bccb5783a045ce9be91bf327c17bd93b47fdb68fd6bc46ed2",
+}
 
 AUTHORITY_BOUNDARY = {
     "permissions": "host",
@@ -82,7 +84,7 @@ class BridgeContract:
             "allow_target": bool(self.allow_target),
             "allow_reward": bool(self.allow_reward),
             "authority": deepcopy(AUTHORITY_BOUNDARY),
-            "roots": list(AXM_ROOTS),
+            "root_contract": deepcopy(AXM_ROOT_CONTRACT_REF),
         }
 
     @property
@@ -95,8 +97,8 @@ class BridgeContract:
             raise ValueError("unsupported bridge contract schema")
         if data.get("authority") != AUTHORITY_BOUNDARY:
             raise ValueError("bridge authority boundary mismatch")
-        if tuple(data.get("roots", ())) != AXM_ROOTS:
-            raise ValueError("bridge AXM roots mismatch")
+        if data.get("root_contract") != AXM_ROOT_CONTRACT_REF:
+            raise ValueError("bridge AXM root contract mismatch")
         contract = cls(
             schema=str(data["schema"]),
             name=str(data["name"]),

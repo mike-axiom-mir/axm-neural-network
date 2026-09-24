@@ -2,6 +2,7 @@ import copy
 import unittest
 
 from axm_bridge import (
+    AXM_ROOT_CONTRACT_REF,
     HostBrainBridge,
     HostEvent,
     UC_BRAIN_IO,
@@ -10,10 +11,10 @@ from axm_bridge import (
 )
 
 try:
-    from neural.axm_brain import BoundBrain, BrainIOContract
+    from neural.axm_brain import AXM_ROOT_CONTRACT, BoundBrain, BrainIOContract
 except ImportError as exc:
     raise RuntimeError(
-        "Pinned axm-uc-neural donor must be on PYTHONPATH for integration tests"
+        "Pinned AXM neural brain implementation must be on PYTHONPATH for integration tests"
     ) from exc
 
 
@@ -27,6 +28,16 @@ class UCDonorIntegrationTests(unittest.TestCase):
             sleep_replay_passes=1,
         )
         return HostBrainBridge(bound, build_uc_bridge_contract())
+
+    def test_root_contract_reference_matches_loaded_neural_core(self):
+        self.assertEqual(
+            AXM_ROOT_CONTRACT.fingerprint,
+            AXM_ROOT_CONTRACT_REF["contract_sha256"],
+        )
+        self.assertEqual(
+            AXM_ROOT_CONTRACT.to_dict()["schema"],
+            AXM_ROOT_CONTRACT_REF["contract_schema"],
+        )
 
     def test_uc_event_changes_retained_host_readable_response(self):
         bridge = self.make_bridge()

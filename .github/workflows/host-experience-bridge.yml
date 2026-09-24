@@ -32,6 +32,27 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - name: Run bridge and donor integration tests
+      - name: Run bridge against pinned donor
         run: |
           PYTHONPATH="$GITHUB_WORKSPACE/network:$GITHUB_WORKSPACE/donor" python -m unittest discover -s "$GITHUB_WORKSPACE/network/tests" -v
+
+  dedicated-core-integration:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout bridge
+        uses: actions/checkout@v4
+        with:
+          path: network
+      - name: Checkout pinned dedicated neural core extraction
+        uses: actions/checkout@v4
+        with:
+          repository: mike-axiom-mir/axm-neural-brain
+          ref: a0f5de4b19bf515e145caf50b12130ab740869b5
+          path: core
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Run bridge against dedicated core
+        run: |
+          PYTHONPATH="$GITHUB_WORKSPACE/network:$GITHUB_WORKSPACE/core" python -m unittest discover -s "$GITHUB_WORKSPACE/network/tests" -v
