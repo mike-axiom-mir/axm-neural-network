@@ -1,0 +1,27 @@
+name: Neural network coordination verification
+
+on:
+  push:
+    paths:
+      - 'src/axm_neural_network/**'
+      - 'tests/**'
+      - '.github/workflows/neural-network.yml'
+  pull_request:
+    paths:
+      - 'src/axm_neural_network/**'
+      - 'tests/**'
+      - '.github/workflows/neural-network.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Run network coordination tests
+        run: PYTHONPATH=src python -m unittest discover -s tests -v
