@@ -1,0 +1,9 @@
+{
+  "schema": "axm-root-contract-ref/v1",
+  "owner_repo": "mike-axiom-mir/axm-neural-brain",
+  "owner_commit": "a0f5de4b19bf515e145caf50b12130ab740869b5",
+  "contract_schema": "axm-roots/v0.1",
+  "contract_sha256": "7d1eaeb05ce9353bccb5783a045ce9be91bf327c17bd93b47fdb68fd6bc46ed2",
+  "donor_repo": "mike-axiom-mir/axm-uc-neural",
+  "donor_commit": "163410ce05a42879dca478d8ea0de7f6d17c4820"
+}
