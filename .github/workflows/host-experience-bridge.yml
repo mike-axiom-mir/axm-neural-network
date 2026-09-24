@@ -1,0 +1,37 @@
+name: Host experience bridge
+
+on:
+  push:
+    branches:
+      - codex/host-experience-bridge-v1
+  pull_request:
+    paths:
+      - "axm_bridge/**"
+      - "tests/**"
+      - "HOST_EXPERIENCE_BRIDGE.md"
+      - ".github/workflows/host-experience-bridge.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  donor-integration:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout bridge
+        uses: actions/checkout@v4
+        with:
+          path: network
+      - name: Checkout pinned UC neural donor
+        uses: actions/checkout@v4
+        with:
+          repository: mike-axiom-mir/axm-uc-neural
+          ref: 163410ce05a42879dca478d8ea0de7f6d17c4820
+          path: donor
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Run bridge and donor integration tests
+        run: |
+          PYTHONPATH="$GITHUB_WORKSPACE/network:$GITHUB_WORKSPACE/donor" python -m unittest discover -s "$GITHUB_WORKSPACE/network/tests" -v
