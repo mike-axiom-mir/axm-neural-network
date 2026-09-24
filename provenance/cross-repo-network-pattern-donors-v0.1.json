@@ -1,0 +1,46 @@
+{
+  "schema": "axm.neural-network.cross-repo-donors/v0.1",
+  "target_branch": "codex/neural-network-coordination-v1",
+  "donors": [
+    {
+      "repository": "mike-axiom-mir/axm-invariant-lab",
+      "inspected_main": "b65dc277802de27dca6f92ae68b1afc8c1d0920a",
+      "path": "adapters/state_research_stateborn_transport.py",
+      "git_blob_sha": "25a73a1ccaee6d4e5c63761a10303a8f62c97d21",
+      "adopted": [
+        "accepted-only replay barrier",
+        "rejected or corrupt attempt never becomes duplicate barrier",
+        "duplicate no-effect requirement"
+      ]
+    },
+    {
+      "repository": "mike-axiom-mir/axm-collaboration-platform",
+      "inspected_main": "c335244e9005df26c0edb99114164765addf6ed0",
+      "path": "shared/module-evolution-ledger/local-append-adapter.js",
+      "git_blob_sha": "b1cb9f0005db4043620d0aa599f23b259aeeffbc",
+      "adopted": [
+        "strict revision/history reconstruction",
+        "hash-bound accepted records",
+        "explicit durability limits"
+      ]
+    },
+    {
+      "repository": "mike-axiom-mir/axm-state-research",
+      "inspected_main": "37bc3b68d035838195a2fd2c1ef5e12672d183b4",
+      "path": "experiments/03-wakeup-fuzzer/wakeup_fuzzer/engine.py",
+      "git_blob_sha": "6b2bf659be8d2a568eb4090025801ea66c158703",
+      "adopted": [
+        "deterministic ordered trace comparison",
+        "oracle-vs-optimized equivalence mindset",
+        "explicit mismatch counting"
+      ]
+    }
+  ],
+  "truth_boundary": {
+    "copied_neural_state": false,
+    "copied_weights": false,
+    "network_remains_coordination_only": true,
+    "exactly_once_real_network_delivery_proven": false,
+    "peer_authentication_proven": false
+  }
+}
