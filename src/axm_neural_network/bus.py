@@ -9,7 +9,7 @@ class LocalBus:
         self.queue_limit = queue_limit
         self.queues = {}
         self.next_sequence = {}
-        self.seen = set()
+        self.seen = {}
         self.event_log = []
 
     def register(self, descriptor):
@@ -38,8 +38,9 @@ class LocalBus:
         return None
 
     def accept(self, event: EventEnvelope) -> str:
-        if event.event_key in self.seen:
-            return "DUPLICATE"
+        seen_fingerprint = self.seen.get(event.event_key)
+        if seen_fingerprint is not None:
+            return "DUPLICATE" if seen_fingerprint == event.fingerprint else "EVENT_KEY_CONFLICT"
         if event.source_node not in self.registry.nodes:
             return "UNKNOWN_SOURCE"
         target = self.registry.nodes.get(event.target_node)
@@ -54,7 +55,7 @@ class LocalBus:
             return "OUT_OF_ORDER"
         if not self.queues[event.target_node].put(event):
             return "BACKPRESSURE"
-        self.seen.add(event.event_key)
+        self.seen[event.event_key] = event.fingerprint
         self.event_log.append(event)
         self.next_sequence[(event.source_node, event.target_node)] = expected + 1
         return "ACCEPTED"
