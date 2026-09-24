@@ -1,35 +1,23 @@
 # Coordination Protocol v0.1
 
-## Separation of concerns
+## Current semantics
 
-`axm-neural-network` coordinates node-to-node events. A node may wrap an AXM neural brain, a software-bound neural instance, a deterministic software agent, or a test double. The network never interprets, averages, merges, synchronizes, trains, or rewrites neural weights.
+A node registers a stable identity, lineage label, interface fingerprint, optional brain fingerprint, and capability metadata. The fingerprints are treated as identity/compatibility evidence only; the coordinator does not inspect or alter neural parameters.
 
-## Identity and compatibility
+Events bind source, target, sequence number, kind, interface fingerprint, data, and optional parent event key. For each source-to-target pair, accepted sequence numbers are contiguous from zero.
 
-Each node registers a stable node identity, the exact SHA-256 fingerprint of the interface contract it accepts, an optional fingerprint identifying its brain snapshot or brain identity, and a sorted set of advertised capabilities.
+The current local bus returns explicit outcomes for duplicate events, unavailable or unknown nodes, interface mismatch, sequence gaps, and queue backpressure. Accepted events are kept in order in an in-memory event log. A fresh local bus can be reconstructed by replaying that accepted log against the same node descriptors.
 
-The interface fingerprint intentionally uses the same canonical JSON rule as the donor AXM Direct Brain `BrainIOContract.fingerprint`: UTF-8 JSON, sorted keys, compact separators, SHA-256.
-
-## Event envelope
-
-Accepted events bind source, target, source→target sequence number, event kind, target interface fingerprint, JSON payload, and optional parent event id. The complete immutable body is SHA-256 addressed as the `event_id`.
-
-## Delivery rules
-
-For every source→target pair, accepted sequence numbers start at zero and are contiguous. An event with a gap or stale unknown sequence is rejected as `OUT_OF_ORDER`. Re-sending the exact accepted event is `DUPLICATE` and does not enqueue a second copy.
-
-A target queue is bounded. When full, the event is rejected as `BACKPRESSURE`; its sequence is not consumed, so the sender can retry the exact event later. Unavailable nodes and incompatible contracts are explicit rejections and do not consume sequence.
-
-## Failure isolation
-
-A node handler failure does not crash the coordinator or alter another node's queue. The failed event becomes an inspectable dead letter and later queued events remain available.
-
-## Replay and restart
-
-The coordinator emits a complete canonical snapshot containing node descriptors, availability, queues, event log, duplicate index, sequence cursors, dead letters and deterministic receipts. The snapshot is SHA-256 protected and restored only after integrity and structural checks.
-
-Accepted event history can also be replayed into a fresh in-process coordinator. Replay reproduces event order and ids. This is coordination replay only; it does not replay or modify node-local neural learning state.
+Capability lookup is deterministic by node id. Handler exceptions can be contained and reported without becoming coordinator exceptions.
 
 ## Authority boundary
 
-v0.1 is in-process only. It contains no socket client/server, cloud connector, shell invocation, tool executor, or filesystem persistence. Any future transport or persistence adapter must be supplied explicitly by the host and preserve these protocol semantics.
+The current transport is in-process only. This repository does not grant itself internet, cloud, shell, tool, or filesystem authority. Future transports must be explicit host-supplied adapters.
+
+## State boundary
+
+Node-local learned state is outside this protocol. No operation here averages, merges, synchronizes, trains, or silently replaces neural weights.
+
+## Open durability work
+
+Full snapshot/restore for partially delivered queues, availability state, retained dead-letter history, richer provenance receipts, and dedicated-brain compatibility fixtures remain open and must be verified before being claimed complete.

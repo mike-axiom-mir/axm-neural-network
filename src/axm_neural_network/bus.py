@@ -22,6 +22,21 @@ class LocalBus:
     def expected_sequence(self, source_node: str, target_node: str) -> int:
         return self.next_sequence.get((source_node, target_node), 0)
 
+    def first_for(
+        self,
+        capability: str,
+        *,
+        interface_fingerprint: str | None = None,
+        exclude_node: str | None = None,
+    ):
+        for node in self.registry.available_with(capability):
+            if node.identity.node_id == exclude_node:
+                continue
+            if interface_fingerprint is not None and node.interface_fingerprint != interface_fingerprint:
+                continue
+            return node
+        return None
+
     def accept(self, event: EventEnvelope) -> str:
         if event.event_key in self.seen:
             return "DUPLICATE"

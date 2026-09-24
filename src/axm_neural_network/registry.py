@@ -19,3 +19,11 @@ class NodeRegistry:
             return "UNKNOWN_NODE"
         self.available[node_id] = bool(value)
         return "AVAILABLE" if value else "UNAVAILABLE"
+
+    def available_with(self, capability: str):
+        return tuple(
+            self.nodes[node_id]
+            for node_id in sorted(self.nodes)
+            if self.available[node_id]
+            and capability in self.nodes[node_id].capabilities
+        )

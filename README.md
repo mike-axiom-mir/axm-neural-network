@@ -2,36 +2,23 @@
 
 **Status: PRODUCTION / HEAVY EXPERIMENTAL**
 
-AXM Neural Network is the local-first deterministic coordination layer between AXM neural brains or software-bound neural nodes.
+This repository is the local coordination layer between AXM neural brains or software-bound neural nodes. It is not a second brain implementation and it does not modify node-local learned state.
 
-It is **not** a neural brain implementation. It does not own or modify neural weights, learned state, training loops, host permissions, shell access, filesystem access, cloud authority, or internet authority.
+## Current foundation
 
-## v0.1 foundation
+The specialist branch currently provides explicit node identity and lineage, brain/interface fingerprint fields, local event envelopes, strict per source-to-target ordering, duplicate handling, bounded queues with backpressure, unavailable-node and interface-mismatch rejection, stable capability lookup/routing, an accepted-event log, restart-by-replay helpers, and isolated handler-failure results.
 
-- explicit stable node identity;
-- brain and interface fingerprints;
-- deterministic message/event envelopes;
-- strict per source→target sequence ordering;
-- duplicate/idempotent replay handling;
-- bounded per-node queues with explicit backpressure;
-- deterministic capability discovery and routing;
-- node availability and failure isolation;
-- inspectable delivery receipts and event provenance;
-- hashed in-memory snapshots for restart/restore;
-- replay into a fresh network without changing node-local learned state;
-- compatibility with the AXM Direct Brain `axm-brain-io/v0.1` fingerprint rule.
+The implementation is in-process only. It has no internet, cloud, shell, tool, or ambient filesystem authority.
 
-The network coordinates **messages and contracts**, not weights. Neural state remains node-local.
+## Verification
 
-## Authority boundary
+Repository tests cover queue ordering/bounds, event ordering, duplicate handling, unavailable nodes, incompatible interfaces, deterministic capability selection, handler failure isolation, and accepted-log replay after reconstruction.
 
-The coordination core has no ambient network, cloud, shell, tool, or filesystem authority. v0.1 provides an in-process transport surface only. A future transport may implement the same explicit contract, but authority must be supplied by the host rather than silently acquired here.
+Still open before this becomes a complete durable coordination substrate: retained dead-letter history inside the bus, full snapshot/restore of partially delivered queues and availability state, stronger provenance receipts, and a verified compatibility fixture tied to the dedicated neural-brain contract once that contract is canonical there.
 
-## Truth boundary
+## Boundary
 
-Passing these tests establishes deterministic local coordination semantics under the covered cases. It does not prove distributed intelligence, semantic understanding, useful collaboration between learned systems, fault tolerance across machines, or correctness of any future external transport.
-
-## AXM roots
+Messages and contracts may move between nodes. Neural parameters do not. The network must not silently average, merge, synchronize, or replace learned weights.
 
 Truth before story. Agency / non-domination. Continuity. Wisdom before speed.
 
