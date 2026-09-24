@@ -16,6 +16,8 @@ class OrderingTests(unittest.TestCase):
         second = EventEnvelope("a", "b", 1, "experience", "contract-a", {"n": 2})
         self.assertEqual(bus.accept(first), "ACCEPTED")
         self.assertEqual(bus.accept(first), "DUPLICATE")
+        conflict = EventEnvelope("a", "b", 0, "experience", "contract-a", {"n": 999})
+        self.assertEqual(bus.accept(conflict), "EVENT_KEY_CONFLICT")
         self.assertEqual(bus.accept(second), "ACCEPTED")
         self.assertEqual(bus.pop("b").data["n"], 1)
         self.assertEqual(bus.pop("b").data["n"], 2)
