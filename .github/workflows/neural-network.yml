@@ -5,6 +5,7 @@ on:
     paths:
       - 'src/axm_neural_network/**'
       - 'tests/**'
+      - 'provenance/cross-repo-network-pattern-donors-v0.1.json'
       - '.github/workflows/neural-network.yml'
   pull_request:
     paths:
