@@ -1,0 +1,18 @@
+{
+  "schema": "axm.verification/v1",
+  "timestamp_utc": "2026-09-25T21:18:51.987213+00:00",
+  "base_commit": "24cd8517d216ae09f2062c3c19fed5269119c0db",
+  "python": "3.12.14",
+  "platform": "Linux-6.18.44-x86_64-with-glibc2.39",
+  "command": "PYTHONPATH=src:../axm-neural-brain python -m unittest discover -s tests -v",
+  "result": "35 tests passed, including NumPy parity and shared packet validation",
+  "sources": {
+    "src/axm_neural_network/simulation_contract.py": "241a3a4eae1d6d51b3fe81935df94ba160c0c44626105bcb030c7321954dd6a7",
+    "src/axm_neural_network/microsim.py": "4e6eafe1ef833dba8b63c9f9c72fb4e395c28a020064579decb6a7de14cd9cd7",
+    "tests/test_simulation_contract.py": "884d7dac7e7c455c7abb3fab5330cee5ed93c98f061943cd04e295fdf235440e"
+  },
+  "limits": [
+    "Provider replay is a host contract, not an execution sandbox.",
+    "No new throughput or external-world claim."
+  ]
+}

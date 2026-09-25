@@ -45,3 +45,6 @@ network readiness. See [STATUS.md](STATUS.md) for the coordination scope.
 Truth before story. Agency / non-domination. Continuity. Wisdom before speed.
 
 Required Notice: Copyright 2026 Mike - Axiom/Mir.
+
+See [replayable simulation providers](SIMULATION_CONTRACT.md) for the shared
+contract used by persistent Brain sessions and the UC experiment.
