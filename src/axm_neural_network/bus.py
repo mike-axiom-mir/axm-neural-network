@@ -38,6 +38,8 @@ class LocalBus:
         return None
 
     def accept(self, event: EventEnvelope) -> str:
+        # Own the accepted record; callers and delivery handlers own their copies.
+        event = EventEnvelope.from_dict(event.to_dict())
         seen_fingerprint = self.seen.get(event.event_key)
         if seen_fingerprint is not None:
             return "DUPLICATE" if seen_fingerprint == event.fingerprint else "EVENT_KEY_CONFLICT"
@@ -53,7 +55,7 @@ class LocalBus:
         expected = self.expected_sequence(event.source_node, event.target_node)
         if event.sequence != expected:
             return "OUT_OF_ORDER"
-        if not self.queues[event.target_node].put(event):
+        if not self.queues[event.target_node].put(EventEnvelope.from_dict(event.to_dict())):
             return "BACKPRESSURE"
         self.seen[event.event_key] = event.fingerprint
         self.event_log.append(event)

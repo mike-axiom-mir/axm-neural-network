@@ -11,7 +11,7 @@ class NodeRegistry:
         if node_id in self.nodes and self.nodes[node_id] != descriptor:
             return "IDENTITY_CONFLICT"
         self.nodes[node_id] = descriptor
-        self.available[node_id] = True
+        self.available.setdefault(node_id, True)
         return "REGISTERED"
 
     def set_available(self, node_id: str, value: bool):

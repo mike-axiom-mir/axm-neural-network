@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+from copy import deepcopy
 import hashlib
 import json
 from typing import Any, Mapping
@@ -70,11 +71,12 @@ class EventEnvelope:
         _text("target_node", self.target_node)
         _text("kind", self.kind)
         _text("interface_fingerprint", self.interface_fingerprint)
-        if not isinstance(self.sequence, int) or self.sequence < 0:
+        if type(self.sequence) is not int or self.sequence < 0:
             raise ValueError("sequence must be a non-negative integer")
         if not isinstance(self.data, Mapping):
             raise ValueError("data must be a mapping")
         canonical_bytes(dict(self.data))
+        object.__setattr__(self, "data", deepcopy(dict(self.data)))
         if self.parent_event_key is not None:
             _text("parent_event_key", self.parent_event_key)
 
@@ -103,7 +105,7 @@ class EventEnvelope:
             "sequence": self.sequence,
             "kind": self.kind,
             "interface_fingerprint": self.interface_fingerprint,
-            "data": dict(self.data),
+            "data": deepcopy(dict(self.data)),
             "parent_event_key": self.parent_event_key,
         }
 
