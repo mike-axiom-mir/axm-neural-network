@@ -65,6 +65,13 @@ class MicroDynamics:
         rng = random.Random(seed)
         return DynamicsState(rng.uniform(-1,1), rng.uniform(-1,1), 0, seed, self.rules.fingerprint)
 
+    def describe_space(self):
+        return {'schema':'axm.simulation-space/v1', 'simulator_id':self.simulator_id,
+                'version':self.version, 'backend':self.backend,
+                'experience_source':self.experience_source,
+                'observation_size':3, 'target_size':2, 'horizon':self.rules.horizon,
+                'action_bounds':[-1.0,1.0], 'parameters':asdict(self.rules)}
+
     def _validate_state(self, state):
         if not isinstance(state, DynamicsState) or state.rules_sha256 != self.rules.fingerprint:
             raise ValueError('state belongs to different dynamics rules')
