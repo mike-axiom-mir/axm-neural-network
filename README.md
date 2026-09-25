@@ -8,4 +8,6 @@ Current research notes:
 
 - [Neural Substrate + Hybrid Architecture Findings](research/NEURAL_SUBSTRATE_HYBRID_FINDINGS.md)
 
+- [Micro-Simulation Learning Substrate](research/MICROSIMULATION_LEARNING_SUBSTRATE.md) — backend-independent primitives for cheap replayable state transitions, batched simulation, direct neural experience, adaptive simulation selection, and measured throughput.
+
 The immediate goal is understanding and comparison, not rebuilding PyTorch or JAX prematurely. Framework-backed experiments can remain useful while AXM keeps the architecture, experience contract, provenance, learning evidence, and future backend boundary explicit.
