@@ -1,0 +1,53 @@
+{
+  "schema": "axm.neural-growth-verification/v1",
+  "date_utc": "2026-09-25T20:42:41.148640+00:00",
+  "python": "3.12.14",
+  "platform": "Linux",
+  "checks": [
+    {
+      "label": "network",
+      "command": [
+        "python",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-v"
+      ],
+      "log": "verification/2026-09-25-neural-growth/network.log",
+      "exit_code": 0
+    }
+  ],
+  "source_sha256": {
+    "src/axm_neural_network/__init__.py": "8ab6a84f7efde340fe8484cba28f695431a17fcbe2e09d5ffcd80b2304e5dbfb",
+    "src/axm_neural_network/bus.py": "03a6c7eb5b46b2a79b37353c97c91d012c7539d5ebe0ccbb4a4e6e4441f60950",
+    "src/axm_neural_network/delivery.py": "5944ef9b16e232d9be010d2a998b5cd6cfba8c7c5d58109ba8942906d1a55e2c",
+    "src/axm_neural_network/host_bridge.py": "e70142e9977d99576b6a2a33466b48dfdd1de5ba483a0fc9ecd8558d616374a1",
+    "src/axm_neural_network/microsim.py": "c25f3abfa0a6bcaf69fe5f94dcd4584a5876fd5cc687b5a07c00d3080c97a80d",
+    "src/axm_neural_network/model.py": "6dc64e3d5c7014492360819eab847ba31c03110126cc14ac629f8283f3ef6120",
+    "src/axm_neural_network/queue.py": "599b01cc19f1bf636fd31ba78f25f3204eda13275cc1df1e2b79d71bb3a9313a",
+    "src/axm_neural_network/registry.py": "d70202508db848397d3f55b58cb6e00f3f9dbdc599d94693815309ae84bdf6dd",
+    "src/axm_neural_network/replay.py": "578d843925df0a4f6296fbd83067ad00076665f0532fe5aa73362446f6a7bdd9",
+    "src/axm_neural_network/state.py": "b182d5fee1adcfae4b919d4f649c493a17e86fbaa7978772cb36ab7b62379978",
+    "src/axm_neural_network/substrate.py": "7c9ed33ddf6727d9729a75cc18717244a9de592bb6d662bc7f412a114cfaa8b7",
+    "tests/test_contracts.py": "f2babc3ff2770f827dfe2943adf6e36aea0e34fcb908e24351ec2b5f72825fbb",
+    "tests/test_delivery.py": "c8f137710d7e837089b900832c611554202d38fc68838f0f8a16c5a3843e9220",
+    "tests/test_event_ownership.py": "7e61dc4e19138e3ee4391710e8b7cbd0cad52be06036f8454f8db0968b43249e",
+    "tests/test_host_bridge_v2.py": "1110b5023dc9d7d436732b083f1e12f55f835ec0cf65e54813d39991bdcc9af2",
+    "tests/test_microsim.py": "42a0fdbb88bc4a428dc40796eaa66c4fdc8d1ecc6af2b4ea5daf1cb1d3f32832",
+    "tests/test_ordering.py": "1d58aca7f47a91941bb44b161a6f4ed954bd39dd23de13e5e60165c8a1ab63a9",
+    "tests/test_queue.py": "d6a34372f8095d2d90d612b7a56cae2b1c7d4deba55b5bd756ae5c58bff5b200",
+    "tests/test_replay.py": "e03a2411e623ebe4a7e11f74dac787b18d20ac6aac28d4e99f54f4f6de08f91f",
+    "tests/test_routing.py": "f3a4cab29a098b4d1ec7fac348a1c6e84bada2b24816787ddaa5d4600f846b68",
+    "tests/test_substrate.py": "c58000b42c3b0e0837751ef264a79d7a0f65a96127ad8058358b01e2e20a10c8",
+    "verification/benchmark_microsim.py": "11cd6da1ac9c18dcbc80aa4bd55cc184d6b674b150ea2083cca15e859e73be07"
+  },
+  "merge_authorization": "Mike requested integration within Truth, Agency, Continuity and Wisdom on 2026-09-25.",
+  "limits": [
+    "No native Windows, UC runtime, GPU or open-ended invention claim.",
+    "Performance evidence covers the declared synthetic tasks only."
+  ],
+  "numpy": "2.3.5",
+  "brain_cross_test": "Integrated sibling brain source; exact Python file hashes recorded in its accompanying receipt."
+}

@@ -1,0 +1,55 @@
+======================================================================
+ERROR: test_caller_cannot_rewrite_accepted_nested_payload (test_event_ownership.EventOwnershipTests.test_caller_cannot_rewrite_accepted_nested_payload)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/7356affac651/axm-neural-network/tests/test_event_ownership.py", line 26, in test_caller_cannot_rewrite_accepted_nested_payload
+    restored = restore_network(snapshot)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/7356affac651/axm-neural-network/src/axm_neural_network/state.py", line 133, in restore_network
+    raise ValueError("accepted fingerprint map mismatch")
+ValueError: accepted fingerprint map mismatch
+
+======================================================================
+ERROR: test_delivered_event_cannot_rewrite_accepted_history (test_event_ownership.EventOwnershipTests.test_delivered_event_cannot_rewrite_accepted_history)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/7356affac651/axm-neural-network/tests/test_event_ownership.py", line 36, in test_delivered_event_cannot_rewrite_accepted_history
+    restored = restore_network(capture_network(bus))
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/7356affac651/axm-neural-network/src/axm_neural_network/state.py", line 133, in restore_network
+    raise ValueError("accepted fingerprint map mismatch")
+ValueError: accepted fingerprint map mismatch
+
+======================================================================
+FAIL: test_boolean_sequence_is_rejected (test_event_ownership.EventOwnershipTests.test_boolean_sequence_is_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/7356affac651/axm-neural-network/tests/test_event_ownership.py", line 49, in test_boolean_sequence_is_rejected
+    with self.assertRaises(ValueError):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_captured_payload_is_detached_from_live_bus (test_event_ownership.EventOwnershipTests.test_captured_payload_is_detached_from_live_bus)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/7356affac651/axm-neural-network/tests/test_event_ownership.py", line 45, in test_captured_payload_is_detached_from_live_bus
+    self.assertEqual(bus.event_log[0].data, {'items': [1]})
+AssertionError: {'items': [1, 2]} != {'items': [1]}
+- {'items': [1, 2]}
+?             ---
+
++ {'items': [1]}
+
+======================================================================
+FAIL: test_duplicate_registration_preserves_unavailable_state (test_event_ownership.EventOwnershipTests.test_duplicate_registration_preserves_unavailable_state)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/7356affac651/axm-neural-network/tests/test_event_ownership.py", line 56, in test_duplicate_registration_preserves_unavailable_state
+    self.assertFalse(bus.registry.available['b'])
+AssertionError: True is not false
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.007s
+
+FAILED (failures=3, errors=2)

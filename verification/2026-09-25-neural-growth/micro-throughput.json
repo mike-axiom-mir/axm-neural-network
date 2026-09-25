@@ -1,0 +1,134 @@
+{
+  "schema": "axm.micro-throughput/v1",
+  "python": "3.12.14",
+  "numpy": "2.3.5",
+  "platform": "Linux-6.18.44-x86_64-with-glibc2.39",
+  "rows": [
+    {
+      "backend": "python",
+      "batch_size": 1,
+      "transitions_per_trial": 2048,
+      "episodes_per_trial": 128,
+      "steps_per_episode": 16,
+      "wall_seconds_trials": [
+        0.11867423900002905,
+        0.11404278500049259,
+        0.11212221000096179
+      ],
+      "cpu_seconds_trials": [
+        0.2340141859999999,
+        0.11404799499999996,
+        0.11212746799999995
+      ],
+      "median_transitions_per_second": 17958.17245248048,
+      "peak_traced_python_bytes_separate_trial": 5090,
+      "bytes_written_by_simulator": 0
+    },
+    {
+      "backend": "python",
+      "batch_size": 32,
+      "transitions_per_trial": 2048,
+      "episodes_per_trial": 128,
+      "steps_per_episode": 16,
+      "wall_seconds_trials": [
+        0.10228287000063574,
+        0.10421121400031552,
+        0.12116206799873908
+      ],
+      "cpu_seconds_trials": [
+        0.10228361799999997,
+        0.10421548499999966,
+        0.12116843700000013
+      ],
+      "median_transitions_per_second": 19652.395566505915,
+      "peak_traced_python_bytes_separate_trial": 137141,
+      "bytes_written_by_simulator": 0
+    },
+    {
+      "backend": "python",
+      "batch_size": 128,
+      "transitions_per_trial": 2048,
+      "episodes_per_trial": 128,
+      "steps_per_episode": 16,
+      "wall_seconds_trials": [
+        0.10654636999970535,
+        0.10177309999926365,
+        0.10474429899841198
+      ],
+      "cpu_seconds_trials": [
+        0.10652445499999974,
+        0.10176667100000003,
+        0.10474960899999974
+      ],
+      "median_transitions_per_second": 19552.37678406774,
+      "peak_traced_python_bytes_separate_trial": 525787,
+      "bytes_written_by_simulator": 0
+    },
+    {
+      "backend": "numpy",
+      "batch_size": 1,
+      "transitions_per_trial": 2048,
+      "episodes_per_trial": 128,
+      "steps_per_episode": 16,
+      "wall_seconds_trials": [
+        0.14800495700001193,
+        0.1433800920003705,
+        0.13774827799898048
+      ],
+      "cpu_seconds_trials": [
+        0.1479901219999995,
+        0.1433851060000002,
+        0.1377539050000003
+      ],
+      "median_transitions_per_second": 14283.71241381759,
+      "peak_traced_python_bytes_separate_trial": 5042,
+      "bytes_written_by_simulator": 0
+    },
+    {
+      "backend": "numpy",
+      "batch_size": 32,
+      "transitions_per_trial": 2048,
+      "episodes_per_trial": 128,
+      "steps_per_episode": 16,
+      "wall_seconds_trials": [
+        0.10728871600076673,
+        0.1191501290013548,
+        0.13371737299894448
+      ],
+      "cpu_seconds_trials": [
+        0.10726269600000027,
+        0.11914410600000025,
+        0.13374065400000035
+      ],
+      "median_transitions_per_second": 17188.399351012984,
+      "peak_traced_python_bytes_separate_trial": 138126,
+      "bytes_written_by_simulator": 0
+    },
+    {
+      "backend": "numpy",
+      "batch_size": 128,
+      "transitions_per_trial": 2048,
+      "episodes_per_trial": 128,
+      "steps_per_episode": 16,
+      "wall_seconds_trials": [
+        0.11232551499961119,
+        0.11506457399991632,
+        0.14458621899939317
+      ],
+      "cpu_seconds_trials": [
+        0.1123136459999996,
+        0.11507087600000077,
+        0.14459152399999997
+      ],
+      "median_transitions_per_second": 17798.701449166183,
+      "peak_traced_python_bytes_separate_trial": 529145,
+      "bytes_written_by_simulator": 0
+    }
+  ],
+  "unit": "One two-value tanh state transition, including reset amortization, validation and hashed experience packet.",
+  "limits": [
+    "No rendering, learner update, external I/O, GPU or physical-world simulation.",
+    "Allocation sample measures Python allocations, not total process RAM or VRAM.",
+    "Local timings vary with host load; batching is measured, not assumed faster."
+  ]
+}
